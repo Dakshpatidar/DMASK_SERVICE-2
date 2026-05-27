@@ -1,0 +1,702 @@
+{
+    "false_negatives": [
+        {
+            "sample_id": 35,
+            "text": "hey this is Idika Minhas from Infosys call me at 6703533036 mail is lbal@example.org",
+            "expected": [
+                "PHONE",
+                "EMAIL",
+                "NAME",
+                "ORG"
+            ],
+            "detected": [
+                "PHONE",
+                "EMAIL",
+                "ORG"
+            ],
+            "missed_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 45,
+            "text": "this is Pranit Mutti from Wipro",
+            "expected": [
+                "NAME",
+                "ORG"
+            ],
+            "detected": [
+                "ORG"
+            ],
+            "missed_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 98,
+            "text": "hey this is Chandran Sur from Wipro call me at 8029189407 mail is jwable@example.com",
+            "expected": [
+                "PHONE",
+                "EMAIL",
+                "NAME",
+                "ORG"
+            ],
+            "detected": [
+                "PHONE",
+                "EMAIL",
+                "ORG"
+            ],
+            "missed_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 111,
+            "text": "hey this is Ekaja Bedi from Infosys call me at 6765257059 mail is sanaya92@example.com",
+            "expected": [
+                "PHONE",
+                "EMAIL",
+                "NAME",
+                "ORG"
+            ],
+            "detected": [
+                "PHONE",
+                "EMAIL",
+                "ORG"
+            ],
+            "missed_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 116,
+            "text": "hey this is Hiral Iyengar from Wipro call me at 7015054698 mail is watika52@example.com",
+            "expected": [
+                "PHONE",
+                "EMAIL",
+                "NAME",
+                "ORG"
+            ],
+            "detected": [
+                "PHONE",
+                "EMAIL",
+                "ORG"
+            ],
+            "missed_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 136,
+            "text": "this is Sara Bhattacharyya from TCS",
+            "expected": [
+                "NAME",
+                "ORG"
+            ],
+            "detected": [
+                "ORG"
+            ],
+            "missed_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 142,
+            "text": "Ekiya Shenoy joined IBM",
+            "expected": [
+                "NAME",
+                "ORG"
+            ],
+            "detected": [
+                "ORG"
+            ],
+            "missed_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 145,
+            "text": "this is Neel Pingle from Google",
+            "expected": [
+                "NAME",
+                "ORG"
+            ],
+            "detected": [
+                "ORG"
+            ],
+            "missed_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 165,
+            "text": "hey this is Laban Bobal from Wipro call me at 7662125665 mail is jwalla@example.org",
+            "expected": [
+                "PHONE",
+                "EMAIL",
+                "NAME",
+                "ORG"
+            ],
+            "detected": [
+                "PHONE",
+                "EMAIL",
+                "ORG"
+            ],
+            "missed_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 169,
+            "text": "hey this is Ekiya Dugar from TCS call me at 6189440184 mail is ishanvigera@example.com",
+            "expected": [
+                "PHONE",
+                "EMAIL",
+                "NAME",
+                "ORG"
+            ],
+            "detected": [
+                "PHONE",
+                "EMAIL",
+                "ORG"
+            ],
+            "missed_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 173,
+            "text": "hey this is Urishilla Pandit from OpenAI call me at 8014588678 mail is isaacsachdev@example.net",
+            "expected": [
+                "PHONE",
+                "EMAIL",
+                "NAME",
+                "ORG"
+            ],
+            "detected": [
+                "PHONE",
+                "EMAIL",
+                "ORG"
+            ],
+            "missed_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 175,
+            "text": "this is Falguni Lad from Infosys",
+            "expected": [
+                "NAME",
+                "ORG"
+            ],
+            "detected": [
+                "ORG"
+            ],
+            "missed_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 185,
+            "text": "hey this is Lipika Swaminathan from Google call me at 8544490664 mail is muttichatura@example.org",
+            "expected": [
+                "PHONE",
+                "EMAIL",
+                "NAME",
+                "ORG"
+            ],
+            "detected": [
+                "PHONE",
+                "EMAIL",
+                "ORG"
+            ],
+            "missed_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 193,
+            "text": "this is Ishaan Balan from Microsoft",
+            "expected": [
+                "NAME",
+                "ORG"
+            ],
+            "detected": [
+                "ORG"
+            ],
+            "missed_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 252,
+            "text": "hey this is Baljiwan Gola from Google call me at 6790745690 mail is idikavarkey@example.net",
+            "expected": [
+                "PHONE",
+                "EMAIL",
+                "NAME",
+                "ORG"
+            ],
+            "detected": [
+                "PHONE",
+                "EMAIL",
+                "ORG"
+            ],
+            "missed_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 270,
+            "text": "hey this is Krisha Nair from Amazon call me at 9780494141 mail is rajandaksh@example.com",
+            "expected": [
+                "PHONE",
+                "EMAIL",
+                "NAME",
+                "ORG"
+            ],
+            "detected": [
+                "PHONE",
+                "EMAIL",
+                "ORG"
+            ],
+            "missed_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 331,
+            "text": "hey this is Xiti Agarwal from TCS call me at 9953940706 mail is manya41@example.org",
+            "expected": [
+                "PHONE",
+                "EMAIL",
+                "NAME",
+                "ORG"
+            ],
+            "detected": [
+                "PHONE",
+                "EMAIL",
+                "ORG"
+            ],
+            "missed_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 356,
+            "text": "hey this is Saumya Rau from Infosys call me at 9212068161 mail is mason08@example.org",
+            "expected": [
+                "PHONE",
+                "EMAIL",
+                "NAME",
+                "ORG"
+            ],
+            "detected": [
+                "PHONE",
+                "EMAIL",
+                "ORG"
+            ],
+            "missed_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 358,
+            "text": "hey this is Upadhriti Goda from Wipro call me at 9427327602 mail is dayitavasa@example.net",
+            "expected": [
+                "PHONE",
+                "EMAIL",
+                "NAME",
+                "ORG"
+            ],
+            "detected": [
+                "PHONE",
+                "EMAIL",
+                "ORG"
+            ],
+            "missed_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 376,
+            "text": "hey this is Harish Bail from IBM call me at 6411466854 mail is vaishnavi06@example.net",
+            "expected": [
+                "PHONE",
+                "EMAIL",
+                "NAME",
+                "ORG"
+            ],
+            "detected": [
+                "PHONE",
+                "EMAIL",
+                "ORG"
+            ],
+            "missed_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 378,
+            "text": "hey this is Nisha Agarwal from Amazon call me at 6375894172 mail is jasmit92@example.com",
+            "expected": [
+                "PHONE",
+                "EMAIL",
+                "NAME",
+                "ORG"
+            ],
+            "detected": [
+                "PHONE",
+                "EMAIL",
+                "ORG"
+            ],
+            "missed_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 380,
+            "text": "this is Indrajit Badal from Microsoft",
+            "expected": [
+                "NAME",
+                "ORG"
+            ],
+            "detected": [
+                "ORG"
+            ],
+            "missed_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 396,
+            "text": "Bhavini Sharaf joined TCS",
+            "expected": [
+                "NAME",
+                "ORG"
+            ],
+            "detected": [
+                "ORG"
+            ],
+            "missed_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 399,
+            "text": "this is Oni Walla from Infosys",
+            "expected": [
+                "NAME",
+                "ORG"
+            ],
+            "detected": [
+                "ORG"
+            ],
+            "missed_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 423,
+            "text": "hey this is Upasna Shan from TCS call me at 9391186090 mail is abeer99@example.org",
+            "expected": [
+                "PHONE",
+                "EMAIL",
+                "NAME",
+                "ORG"
+            ],
+            "detected": [
+                "PHONE",
+                "EMAIL",
+                "ORG"
+            ],
+            "missed_entities": [
+                "NAME"
+            ]
+        }
+    ],
+    "false_positives": [
+        {
+            "sample_id": 18,
+            "text": "pan no TWTLL1113Z",
+            "expected": [
+                "PAN"
+            ],
+            "detected": [
+                "PAN",
+                "ORG"
+            ],
+            "extra_entities": [
+                "ORG"
+            ]
+        },
+        {
+            "sample_id": 24,
+            "text": "pan: WDYCU1101U",
+            "expected": [
+                "PAN"
+            ],
+            "detected": [
+                "PAN",
+                "NAME"
+            ],
+            "extra_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 34,
+            "text": "pan no YGBGY9811O",
+            "expected": [
+                "PAN"
+            ],
+            "detected": [
+                "PAN",
+                "ORG"
+            ],
+            "extra_entities": [
+                "ORG"
+            ]
+        },
+        {
+            "sample_id": 55,
+            "text": "pan no GAHSC1704E",
+            "expected": [
+                "PAN"
+            ],
+            "detected": [
+                "PAN",
+                "ORG"
+            ],
+            "extra_entities": [
+                "ORG"
+            ]
+        },
+        {
+            "sample_id": 62,
+            "text": "pan number FOAND1630N",
+            "expected": [
+                "PAN"
+            ],
+            "detected": [
+                "PAN",
+                "NAME"
+            ],
+            "extra_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 112,
+            "text": "pan no GZEXM6449U",
+            "expected": [
+                "PAN"
+            ],
+            "detected": [
+                "PAN",
+                "ORG"
+            ],
+            "extra_entities": [
+                "ORG"
+            ]
+        },
+        {
+            "sample_id": 131,
+            "text": "pan: RHIKD5818Z",
+            "expected": [
+                "PAN"
+            ],
+            "detected": [
+                "PAN",
+                "NAME"
+            ],
+            "extra_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 199,
+            "text": "pan: TJKVP1312O",
+            "expected": [
+                "PAN"
+            ],
+            "detected": [
+                "PAN",
+                "NAME"
+            ],
+            "extra_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 210,
+            "text": "pan: OZTTG3007K",
+            "expected": [
+                "PAN"
+            ],
+            "detected": [
+                "PAN",
+                "NAME"
+            ],
+            "extra_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 231,
+            "text": "pan: ZZBUQ5842V",
+            "expected": [
+                "PAN"
+            ],
+            "detected": [
+                "PAN",
+                "NAME"
+            ],
+            "extra_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 238,
+            "text": "pan: JTURT5873J",
+            "expected": [
+                "PAN"
+            ],
+            "detected": [
+                "PAN",
+                "NAME"
+            ],
+            "extra_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 265,
+            "text": "pan no GHHNI6442U",
+            "expected": [
+                "PAN"
+            ],
+            "detected": [
+                "PAN",
+                "ORG"
+            ],
+            "extra_entities": [
+                "ORG"
+            ]
+        },
+        {
+            "sample_id": 313,
+            "text": "pan number SVMGQ6514G",
+            "expected": [
+                "PAN"
+            ],
+            "detected": [
+                "PAN",
+                "NAME",
+                "ORG"
+            ],
+            "extra_entities": [
+                "NAME",
+                "ORG"
+            ]
+        },
+        {
+            "sample_id": 322,
+            "text": "pan no NQDPV5668F",
+            "expected": [
+                "PAN"
+            ],
+            "detected": [
+                "PAN",
+                "ORG"
+            ],
+            "extra_entities": [
+                "ORG"
+            ]
+        },
+        {
+            "sample_id": 333,
+            "text": "pan no NHYWG7323B",
+            "expected": [
+                "PAN"
+            ],
+            "detected": [
+                "PAN",
+                "ORG"
+            ],
+            "extra_entities": [
+                "ORG"
+            ]
+        },
+        {
+            "sample_id": 345,
+            "text": "pan: JGUOX7655C",
+            "expected": [
+                "PAN"
+            ],
+            "detected": [
+                "PAN",
+                "NAME"
+            ],
+            "extra_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 354,
+            "text": "pan no HVWFE5146A",
+            "expected": [
+                "PAN"
+            ],
+            "detected": [
+                "PAN",
+                "ORG"
+            ],
+            "extra_entities": [
+                "ORG"
+            ]
+        },
+        {
+            "sample_id": 401,
+            "text": "pan no IKXXG8759J",
+            "expected": [
+                "PAN"
+            ],
+            "detected": [
+                "PAN",
+                "ORG"
+            ],
+            "extra_entities": [
+                "ORG"
+            ]
+        },
+        {
+            "sample_id": 404,
+            "text": "pan number YLWCW7061F",
+            "expected": [
+                "PAN"
+            ],
+            "detected": [
+                "PAN",
+                "NAME"
+            ],
+            "extra_entities": [
+                "NAME"
+            ]
+        },
+        {
+            "sample_id": 415,
+            "text": "pan number TCWES6592N",
+            "expected": [
+                "PAN"
+            ],
+            "detected": [
+                "PAN",
+                "NAME"
+            ],
+            "extra_entities": [
+                "NAME"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,37 @@
+{
+    "EMAIL": {
+        "risk_level": "MEDIUM",
+        "risk_score": 60,
+        "policy_action": "MASK"
+    },
+
+    "PHONE": {
+        "risk_level": "HIGH",
+        "risk_score": 80,
+        "policy_action": "TOKENIZE"
+    },
+
+    "AADHAAR": {
+        "risk_level": "CRITICAL",
+        "risk_score": 100,
+        "policy_action": "REDACT"
+    },
+
+    "PAN": {
+        "risk_level": "HIGH",
+        "risk_score": 85,
+        "policy_action": "MASK"
+    },
+
+    "NAME": {
+        "risk_level": "LOW",
+        "risk_score": 30,
+        "policy_action": "PARTIAL_MASK"
+    },
+
+    "ORG": {
+        "risk_level": "LOW",
+        "risk_score": 25,
+        "policy_action": "MASK"
+    }
+}
