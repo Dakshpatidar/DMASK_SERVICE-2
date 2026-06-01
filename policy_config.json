@@ -24,14 +24,14 @@
     },
 
     "NAME": {
-        "risk_level": "LOW",
-        "risk_score": 30,
+        "risk_level": "MEDIUM",
+        "risk_score": 50,
         "policy_action": "PARTIAL_MASK"
     },
 
     "ORG": {
         "risk_level": "LOW",
         "risk_score": 25,
-        "policy_action": "MASK"
+        "policy_action": "IGNORE"
     }
 }

@@ -1,11 +1,16 @@
+#discovery_pipeline.py
+
 # =========================================
-# DISCOVERY IMPORTS
+# DISCOVERY IMPORTS                       
 # =========================================
 
 from privacy_engine.discovery.regex_discovery import regex_discovery
 
 from privacy_engine.discovery.ner_discovery import ner_discovery
 
+from privacy_engine.context_understanding.context_analyzer import (
+    analyze_context
+)
 from privacy_engine.context.context_patterns import (
     context_pattern_discovery
 )
@@ -17,6 +22,20 @@ from privacy_engine.context.org_context_detector import (
 from privacy_engine.classification.classification_layer import (
     classify_entities
 )
+from privacy_engine.entity_resolution.entity_resolver import (
+    resolve_entities
+)
+from privacy_engine.discovery.gliner_discovery import (
+    gliner_discovery
+)
+# =========================================
+# VALIDATION IMPORTS
+# =========================================
+
+from privacy_engine.validation.entity_validator import (
+    validate_entities
+)
+
 
 
 # =========================================
@@ -70,6 +89,13 @@ from privacy_engine.risk.risk_scoring import (
 
 from privacy_engine.policy.policy_resolver import (
     apply_policy_rules
+)
+# =========================================
+# AUDIT IMPORTS
+# =========================================
+
+from privacy_engine.audit.audit_logger import (
+    generate_audit_logs
 )
 
 
@@ -129,6 +155,9 @@ def discovery_pipeline(text):
     context_org_entities = (
         detect_org_from_context(text)
     )
+    gliner_entities = gliner_discovery(
+    text
+)
 
     # =====================================
     # COMBINE ALL ENTITIES
@@ -136,22 +165,49 @@ def discovery_pipeline(text):
 
     all_entities = (
 
-        regex_entities
+    regex_entities
 
-        + ner_entities
+    + ner_entities
 
-        + context_pattern_entities
+    + gliner_entities
 
-        + context_org_entities
-    )
+    + context_pattern_entities
 
-    # =====================================
-    # REMOVE DUPLICATES
-    # =====================================
+    + context_org_entities
+)
+
+    ## =====================================
+# CONTEXT ANALYSIS
+# =====================================
+
+    context_info = analyze_context(
+        text
+)
+
+# =====================================
+# ENTITY VALIDATION
+# =====================================
+
+    validated_entities = validate_entities(
+        all_entities,
+        context_info
+)
+
+# =====================================
+# ENTITY RESOLUTION
+# =====================================
+
+    resolved_entities = resolve_entities(
+        validated_entities
+)   
+
+# =====================================
+# REMOVE DUPLICATES
+# =====================================
 
     unique_entities = remove_duplicates(
-        all_entities
-    )
+        resolved_entities
+)
 
     # =====================================
     # CROSS VALIDATION
@@ -196,11 +252,9 @@ def discovery_pipeline(text):
         # ---------------------------------
 
         if value in pan_values and label in [
-
             "NAME",
             "ORG"
         ]:
-
             continue
 
         # ---------------------------------
@@ -208,11 +262,9 @@ def discovery_pipeline(text):
         # ---------------------------------
 
         if value in aadhaar_values and label in [
-
             "NAME",
             "ORG"
         ]:
-
             continue
 
         # ---------------------------------
@@ -220,11 +272,9 @@ def discovery_pipeline(text):
         # ---------------------------------
 
         if value in phone_values and label in [
-
             "NAME",
             "ORG"
         ]:
-
             continue
 
         validated_entities.append(entity)
@@ -276,7 +326,6 @@ def discovery_pipeline(text):
         ]:
 
             if confidence < 0.60:
-
                 continue
 
         # ---------------------------------
@@ -290,7 +339,6 @@ def discovery_pipeline(text):
         ]:
 
             if confidence < 0.35:
-
                 continue
 
         confidence_entities.append(
@@ -330,6 +378,14 @@ def discovery_pipeline(text):
     policy_entities = apply_policy_rules(
         risk_entities
     )
+        # =====================================
+    # AUDIT LOGGING
+    # =====================================
+
+    audit_logs = generate_audit_logs(
+        policy_entities
+    )
+    
 
     # =====================================
     # MASKING ENGINE
@@ -358,5 +414,7 @@ def discovery_pipeline(text):
 
         "protected_text": protected_text,
 
-        "replacement_map": replacement_map
+        "replacement_map": replacement_map,
+
+        "audit_logs": audit_logs
     }

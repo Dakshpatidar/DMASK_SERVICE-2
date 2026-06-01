@@ -1,4 +1,6 @@
-# context_layer.py
+# =========================================
+# GENERIC ORGANIZATION WORDS
+# =========================================
 
 GENERIC_ORG_WORDS = {
 
@@ -8,9 +10,56 @@ GENERIC_ORG_WORDS = {
     "startup",
     "business",
     "office",
-    "industry"
+    "industry",
+    "corporation"
 }
 
+
+# =========================================
+# GENERIC PERSON WORDS
+# =========================================
+
+GENERIC_PERSON_WORDS = {
+
+    "user",
+    "customer",
+    "employee",
+    "admin",
+    "administrator",
+    "manager",
+    "client",
+    "person",
+    "owner",
+    "member",
+    "guest",
+    "staff",
+    "worker",
+    "developer"
+}
+
+
+# =========================================
+# ACTION WORDS
+# =========================================
+
+ACTION_WORDS = {
+
+    "building",
+    "creating",
+    "developing",
+    "launching",
+    "starting",
+    "founded",
+    "founding",
+    "working",
+    "joining",
+    "joined"
+}
+
+
+# =========================================
+# CONTEXT FILTERING
+# =========================================
 
 def apply_context_rules(text, entities):
 
@@ -22,8 +71,10 @@ def apply_context_rules(text, entities):
 
         label = entity["label"]
 
+        value_lower = value.lower()
+
         # =====================================
-        # REMOVE GENERIC ORG WORDS
+        # REMOVE GENERIC ORGS
         # =====================================
 
         if (
@@ -32,13 +83,13 @@ def apply_context_rules(text, entities):
 
             and
 
-            value.lower() in GENERIC_ORG_WORDS
+            value_lower in GENERIC_ORG_WORDS
         ):
 
             continue
 
         # =====================================
-        # REMOVE VERY SMALL NAMES
+        # REMOVE GENERIC NAMES
         # =====================================
 
         if (
@@ -47,11 +98,83 @@ def apply_context_rules(text, entities):
 
             and
 
-            len(value.split()) < 2
+            value_lower in GENERIC_PERSON_WORDS
         ):
 
             continue
 
-        refined_entities.append(entity)
+        # =====================================
+        # REMOVE ACTION WORD CAPTURES
+        # =====================================
+
+        words = value_lower.split()
+
+        if len(words) > 0:
+
+            if words[0] in ACTION_WORDS:
+
+                continue
+
+        # =====================================
+        # VERY SMALL ORGS
+        # =====================================
+
+        if (
+
+            label == "ORG"
+
+            and
+
+            len(value) < 3
+        ):
+
+            continue
+
+        # =====================================
+        # VERY SMALL NAMES
+        # =====================================
+
+        if (
+
+            label == "NAME"
+
+            and
+
+            len(value) < 3
+        ):
+
+            continue
+
+        # =====================================
+        # SINGLE WORD NAME FILTER
+        # REDUCES GLINER FALSE POSITIVES
+        # =====================================
+
+        if (
+
+            label == "NAME"
+
+            and
+
+            len(value.split()) == 1
+
+            and
+
+            value_lower not in {
+
+                "elon",
+                "daksh",
+                "rohit",
+                "john",
+                "musk"
+            }
+
+        ):
+
+            continue
+
+        refined_entities.append(
+            entity
+        )
 
     return refined_entities

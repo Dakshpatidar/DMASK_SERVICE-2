@@ -1,23 +1,87 @@
-# risk_scoring.py
-
-
 # =========================================
 # RISK LEVELS
 # =========================================
 
 RISK_LEVELS = {
 
-    "EMAIL": ("MEDIUM", 60),
+    # =====================================
+    # CRITICAL
+    # =====================================
 
-    "PHONE": ("HIGH", 80),
+    "AADHAAR": (
 
-    "PAN": ("HIGH", 85),
+        "CRITICAL",
 
-    "AADHAAR": ("CRITICAL", 100),
+        100
+    ),
 
-    "NAME": ("LOW", 30),
+    # =====================================
+    # HIGH
+    # =====================================
 
-    "ORG": ("LOW", 25)
+    "PAN": (
+
+        "HIGH",
+
+        85
+    ),
+
+    "PHONE": (
+
+        "HIGH",
+
+        80
+    ),
+
+    "ACCOUNT": (
+
+        "HIGH",
+
+        90
+    ),
+
+    # =====================================
+    # MEDIUM
+    # =====================================
+
+    "EMAIL": (
+
+        "MEDIUM",
+
+        60
+    ),
+
+    "IP_ADDRESS": (
+
+        "MEDIUM",
+
+        50
+    ),
+
+    # =====================================
+    # LOW
+    # =====================================
+
+    "NAME": (
+
+        "LOW",
+
+        30
+    ),
+
+    "ORG": (
+
+        "LOW",
+
+        25
+    ),
+
+    "LOCATION": (
+
+        "LOW",
+
+        20
+    )
 }
 
 
@@ -34,7 +98,9 @@ def assign_risk_scores(entities):
         label = entity["label"]
 
         risk_level, risk_score = RISK_LEVELS.get(
+
             label,
+
             ("LOW", 10)
         )
 
@@ -42,6 +108,8 @@ def assign_risk_scores(entities):
 
         entity["risk_score"] = risk_score
 
-        updated_entities.append(entity)
+        updated_entities.append(
+            entity
+        )
 
     return updated_entities

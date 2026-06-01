@@ -93,24 +93,30 @@ CONTEXT_LABELS = {
     # NAME
     # =====================================
 
-    "NAME": [
+    # =====================================
+# NAME
+# =====================================
 
-        r"my name is ([A-Z][a-z]{2,20}\s[A-Z][a-z]{2,20})",
+"NAME": [
 
-        r"i am ([A-Z][a-z]{2,20}\s[A-Z][a-z]{2,20})",
+    r"my name is ([A-Z][a-zA-Z]+\s[A-Z][a-zA-Z]+)",
 
-        r"name is ([A-Z][a-z]{2,20}\s[A-Z][a-z]{2,20})",
+    r"name is ([A-Z][a-zA-Z]+\s[A-Z][a-zA-Z]+)",
 
-        r"name: ([A-Z][a-z]{2,20}\s[A-Z][a-z]{2,20})",
+    r"this is ([A-Z][a-zA-Z]+\s[A-Z][a-zA-Z]+)",
 
-        r"this is ([A-Z][a-z]{2,20}\s[A-Z][a-z]{2,20})",
+    r"([A-Z][a-zA-Z]+\s[A-Z][a-zA-Z]+)\sjoined",
 
-        r"hired ([A-Z][a-z]{2,20}\s[A-Z][a-z]{2,20})",
+    r"([A-Z][a-zA-Z]+\s[A-Z][a-zA-Z]+)\sworks at",
 
-        r"employee ([A-Z][a-z]{2,20}\s[A-Z][a-z]{2,20})",
+    r"([A-Z][a-zA-Z]+\s[A-Z][a-zA-Z]+)\sworks in",
 
-        r"user ([A-Z][a-z]{2,20}\s[A-Z][a-z]{2,20})"
-    ],
+    r"([A-Z][a-zA-Z]+\s[A-Z][a-zA-Z]+)\sworks for",
+
+    r"this is ([A-Z][a-zA-Z]+\s[A-Z][a-zA-Z]+)\sfrom",
+
+    r"hey this is ([A-Z][a-zA-Z]+\s[A-Z][a-zA-Z]+)\sfrom"
+],
 
     # =====================================
     # EMAIL

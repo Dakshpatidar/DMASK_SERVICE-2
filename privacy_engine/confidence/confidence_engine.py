@@ -1,6 +1,3 @@
-# privacy_engine/confidence/confidence_engine.py
-
-
 # =========================================
 # ASSIGN CONFIDENCE
 # =========================================
@@ -17,12 +14,31 @@ def assign_confidence(entity):
     confidence = 0.50
 
     # =====================================
-    # REGEX ENTITIES
+    # REGEX
     # =====================================
 
     if source == "REGEX":
 
         confidence = 0.99
+
+    # =====================================
+    # GLINER
+    # =====================================
+
+    elif source == "GLINER":
+
+        confidence = 0.92
+
+    # =====================================
+    # CONTEXT VERIFIED
+    # =====================================
+
+    elif entity.get(
+        "validated",
+        False
+    ):
+
+        confidence = 0.95
 
     # =====================================
     # CONTEXT PATTERN
@@ -33,7 +49,15 @@ def assign_confidence(entity):
         confidence = 0.90
 
     # =====================================
-    # NER ENTITIES
+    # ORG CONTEXT
+    # =====================================
+
+    elif source == "ORG_CONTEXT":
+
+        confidence = 0.85
+
+    # =====================================
+    # NER
     # =====================================
 
     elif source == "NER":
@@ -41,21 +65,33 @@ def assign_confidence(entity):
         confidence = 0.75
 
     # =====================================
-    # ENTITY-SPECIFIC BOOST
+    # HIGH SENSITIVITY ENTITIES
     # =====================================
 
     if label in [
 
         "EMAIL",
+
         "PHONE",
+
         "PAN",
-        "AADHAAR"
+
+        "AADHAAR",
+
+        "IP_ADDRESS",
+
+        "ACCOUNT"
+
     ]:
 
         confidence = max(
             confidence,
             0.95
         )
+
+    # =====================================
+    # SAVE CONFIDENCE
+    # =====================================
 
     entity["confidence"] = confidence
 

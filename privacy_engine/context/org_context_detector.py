@@ -1,29 +1,37 @@
-# privacy_engine/context/org_context_detector.py
-
+#org_context_detector.py
 import re
 
+from privacy_engine.context_understanding.context_analyzer import (
+    analyze_context
+)
 
 ORG_CONTEXT_PATTERNS = [
 
-    r"work at ([A-Z][a-zA-Z0-9&_ -]+)",
-    r"works at ([A-Z][a-zA-Z0-9&_ -]+)",
-    r"working at ([A-Z][a-zA-Z0-9&_ -]+)",
+    r"work\s+at\s+([^\.,\n]+)",
+    r"works\s+at\s+([^\.,\n]+)",
+    r"working\s+at\s+([^\.,\n]+)",
 
-    r"joined ([A-Z][a-zA-Z0-9&_ -]+)",
+    r"work\s+for\s+([^\.,\n]+)",
+    r"works\s+for\s+([^\.,\n]+)",
 
-    r"employee at ([A-Z][a-zA-Z0-9&_ -]+)",
-    r"employee of ([A-Z][a-zA-Z0-9&_ -]+)",
+    r"joined\s+([^\.,\n]+)",
 
-    r"from ([A-Z][a-zA-Z0-9&_ -]+)",
+    r"employee\s+at\s+([^\.,\n]+)",
 
-    r"company ([A-Z][a-zA-Z0-9&_ -]+)",
-
-    r"organization ([A-Z][a-zA-Z0-9&_ -]+)",
-
+    r"building\s+([^\.,\n]+)",
+    r"creating\s+([^\.,\n]+)",
+    r"developing\s+([^\.,\n]+)",
+    r"launching\s+([^\.,\n]+)",
+    r"starting\s+([^\.,\n]+)",
+    r"founded\s+([^\.,\n]+)",
+    r"founding\s+([^\.,\n]+)",
+    r"created\s+([^\.,\n]+)",
+    r"built\s+([^\.,\n]+)"
 ]
 
-
 def detect_org_from_context(text):
+
+    context_info = analyze_context(text)
 
     entities = []
 
@@ -49,7 +57,9 @@ def detect_org_from_context(text):
 
                 "end": match.end(1),
 
-                "source": "CONTEXT"
+                "source": "ORG_CONTEXT",
+
+                "context": context_info
 
             })
 

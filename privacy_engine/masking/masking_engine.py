@@ -1,8 +1,5 @@
-# masking_engine.py
-
-
 # =========================================
-# PARTIAL MASK FUNCTION
+# PARTIAL MASK
 # =========================================
 
 def partial_mask(value):
@@ -19,45 +16,64 @@ def partial_mask(value):
 
         else:
 
-            masked_word = word[0] + "*" * (len(word) - 1)
+            masked_words.append(
 
-            masked_words.append(masked_word)
+                word[0]
+                +
+
+                "*" * (len(word) - 1)
+
+            )
 
     return " ".join(masked_words)
 
 
 # =========================================
-# MAIN MASKING ENGINE
+# SAFE MASKING ENGINE
 # =========================================
 
 def protect_text(text, entities):
-
-    protected_text = text
 
     replacement_map = {}
 
     counters = {
 
         "EMAIL": 0,
+
         "PHONE": 0,
+
         "PAN": 0,
+
         "AADHAAR": 0,
+
+        "ACCOUNT": 0,
+
+        "IP_ADDRESS": 0,
+
         "NAME": 0,
-        "ORG": 0
+
+        "ORG": 0,
+
+        "LOCATION": 0
     }
 
     # =====================================
-    # SORT LONGEST FIRST
+    # SORT BY START DESC
     # =====================================
 
     entities = sorted(
+
         entities,
-        key=lambda x: len(x["value"]),
+
+        key=lambda x: x["start"],
+
         reverse=True
     )
 
+    protected_text = text
+
     # =====================================
-    # APPLY MASKING
+    # ENTITY LOOP
     # =====================================
 
     for entity in entities:
@@ -66,59 +82,116 @@ def protect_text(text, entities):
 
         label = entity["label"]
 
-        action = entity["policy_action"]
+        start = entity["start"]
+
+        end = entity["end"]
+
+        action = entity.get(
+            "policy_action",
+            "MASK"
+        )
+
+        # =================================
+        # IGNORE
+        # =================================
+
+        if action == "IGNORE":
+
+            continue
+
+        # =================================
+        # FUTURE SAFE COUNTERS
+        # =================================
+
+        if label not in counters:
+
+            counters[label] = 0
 
         counters[label] += 1
 
-        # ---------------------------------
+        # =================================
         # MASK
-        # ---------------------------------
+        # =================================
 
         if action == "MASK":
 
-            replacement = f"[{label}_{counters[label]}]"
+            replacement = (
 
-        # ---------------------------------
+                f"[{label}_{counters[label]}]"
+
+            )
+
+        # =================================
         # TOKENIZE
-        # ---------------------------------
+        # =================================
 
         elif action == "TOKENIZE":
 
-            replacement = f"[{label}_TOKEN_{counters[label]}]"
+            replacement = (
 
-        # ---------------------------------
+                f"[{label}_TOKEN_{counters[label]}]"
+
+            )
+
+        # =================================
         # REDACT
-        # ---------------------------------
+        # =================================
 
         elif action == "REDACT":
 
-            replacement = f"[REDACTED_{label}]"
+            replacement = (
 
-        # ---------------------------------
+                f"[REDACTED_{label}]"
+
+            )
+
+        # =================================
         # PARTIAL MASK
-        # ---------------------------------
+        # =================================
 
         elif action == "PARTIAL_MASK":
 
-            replacement = partial_mask(value)
+            replacement = partial_mask(
+                value
+            )
 
-        # ---------------------------------
-        # DEFAULT
-        # ---------------------------------
+        # =================================
+        # FALLBACK
+        # =================================
 
         else:
 
-            replacement = f"[{label}]"
+            replacement = (
+
+                f"[{label}]"
+
+            )
 
         # =================================
-        # REPLACE TEXT
+        # POSITION-BASED REPLACEMENT
         # =================================
 
-        protected_text = protected_text.replace(
-            value,
+        protected_text = (
+
+            protected_text[:start]
+
+            +
+
+            replacement
+
+            +
+
+            protected_text[end:]
+
+        )
+
+        replacement_map[value] = (
             replacement
         )
 
-        replacement_map[value] = replacement
+    return (
 
-    return protected_text, replacement_map
+        protected_text,
+
+        replacement_map
+    )

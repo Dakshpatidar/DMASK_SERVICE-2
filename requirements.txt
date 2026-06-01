@@ -1,3 +1,4 @@
+#requirements.txt
 
 streamlit==1.45.1
 numpy==1.26.4
@@ -5,3 +6,15 @@ spacy==3.7.4
 https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl
 fastapi
 uvicorn[standard]
+
+gliner==0.2.16
+torch
+transformers
+sentencepiece
+accelerate
+pandas
+openpyxl
+PyPDF2
+pdfplumber
+pytesseract
+pdf2image

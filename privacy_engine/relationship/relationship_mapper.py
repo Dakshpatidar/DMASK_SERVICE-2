@@ -1,24 +1,6 @@
-RELATIONSHIP_PATTERNS = {
-
-    "works at": "WORKS_AT",
-
-    "employee at": "WORKS_AT",
-
-    "owns": "OWNS",
-
-    "account number": "HAS_ACCOUNT",
-
-    "email is": "HAS_EMAIL",
-
-    "phone number": "HAS_PHONE"
-}
-
-
 def map_relationships(text, entities):
 
     relationships = []
-
-    lower_text = text.lower()
 
     names = [
         e for e in entities
@@ -28,11 +10,6 @@ def map_relationships(text, entities):
     orgs = [
         e for e in entities
         if e["label"] == "ORG"
-    ]
-
-    accounts = [
-        e for e in entities
-        if e["label"] == "ACCOUNT"
     ]
 
     emails = [
@@ -45,60 +22,136 @@ def map_relationships(text, entities):
         if e["label"] == "PHONE"
     ]
 
-    # NAME → ORG
+    accounts = [
+        e for e in entities
+        if e["label"] == "ACCOUNT"
+    ]
 
-    if "works at" in lower_text:
+    # =====================================
+    # DETERMINE USER
+    # =====================================
 
-        for name in names:
+    user_name = "USER"
 
-            for org in orgs:
+    if names:
+
+        user_name = names[0]["value"]
+
+    # =====================================
+    # ORG RELATIONSHIPS
+    # =====================================
+
+    for entity in orgs:
+
+        contexts = entity.get(
+            "context",
+            []
+        )
+
+        for ctx in contexts:
+
+            intent = ctx.get(
+                "intent"
+            )
+
+            subject = ctx.get(
+                "subject"
+            )
+
+            if subject:
+
+                if subject.lower() in [
+
+                    "i",
+                    "me",
+                    "my",
+                    "myself"
+
+                ]:
+
+                    source = user_name
+
+                else:
+
+                    source = subject
+
+            else:
+
+                source = user_name
+
+            # -----------------------------
+            # CREATE ORG
+            # -----------------------------
+
+            if intent == "CREATE_ORG":
 
                 relationships.append({
-                    "source": name["value"],
+
+                    "source": source,
+
+                    "relationship": "FOUNDED",
+
+                    "target": entity["value"]
+                })
+
+            # -----------------------------
+            # WORKS AT
+            # -----------------------------
+
+            elif intent == "ASSOCIATE_ORG":
+
+                relationships.append({
+
+                    "source": source,
+
                     "relationship": "WORKS_AT",
-                    "target": org["value"]
+
+                    "target": entity["value"]
                 })
 
-    # NAME → ACCOUNT
+    # =====================================
+    # EMAIL RELATIONSHIPS
+    # =====================================
 
-    if "account number" in lower_text:
+    for email in emails:
 
-        for name in names:
+        relationships.append({
 
-            for acc in accounts:
+            "source": user_name,
 
-                relationships.append({
-                    "source": name["value"],
-                    "relationship": "HAS_ACCOUNT",
-                    "target": acc["value"]
-                })
+            "relationship": "HAS_EMAIL",
 
-    # NAME → EMAIL
+            "target": email["value"]
+        })
 
-    if "email" in lower_text:
+    # =====================================
+    # PHONE RELATIONSHIPS
+    # =====================================
 
-        for name in names:
+    for phone in phones:
 
-            for email in emails:
+        relationships.append({
 
-                relationships.append({
-                    "source": name["value"],
-                    "relationship": "HAS_EMAIL",
-                    "target": email["value"]
-                })
+            "source": user_name,
 
-    # NAME → PHONE
+            "relationship": "HAS_PHONE",
 
-    if "phone number" in lower_text:
+            "target": phone["value"]
+        })
 
-        for name in names:
+    # =====================================
+    # ACCOUNT RELATIONSHIPS
+    # =====================================
 
-            for phone in phones:
+    for account in accounts:
 
-                relationships.append({
-                    "source": name["value"],
-                    "relationship": "HAS_PHONE",
-                    "target": phone["value"]
-                })
+        relationships.append({
+
+            "source": user_name,
+
+            "relationship": "OWNS_ACCOUNT",
+
+            "target": account["value"]
+        })
 
     return relationships

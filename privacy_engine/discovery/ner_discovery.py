@@ -1,7 +1,15 @@
-# ner_discovery.py
+#ner_discovery.py
 
 import spacy
 import re
+
+from privacy_engine.context.context_engine import (
+    should_mask_org
+)
+
+from privacy_engine.context_understanding.context_analyzer import (
+    analyze_context
+)
 
 nlp = spacy.load("en_core_web_sm")
 
@@ -37,6 +45,12 @@ IGNORE_WORDS = {
 def ner_discovery(text):
 
     doc = nlp(text)
+
+    # =====================================
+    # CONTEXT ANALYSIS
+    # =====================================
+
+    context_info = analyze_context(text)
 
     entities = []
 
@@ -82,22 +96,29 @@ def ner_discovery(text):
             })
 
         # =====================================
-        # ORG -> ORGANIZATION
+        # ORG -> CONTEXT AWARE
         # =====================================
 
         elif label == "ORG":
 
-            entities.append({
+            if should_mask_org(
+                value,
+                text
+            ):
 
-                "value": value,
+                entities.append({
 
-                "label": "ORG",
+                    "value": value,
 
-                "start": ent.start_char,
+                    "label": "ORG",
 
-                "end": ent.end_char,
+                    "start": ent.start_char,
 
-                "source": "NER"
-            })
+                    "end": ent.end_char,
+
+                    "source": "NER",
+
+                    "context": context_info
+                })
 
     return entities
